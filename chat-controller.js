@@ -6,10 +6,10 @@ db.serialize(() => {
   db.run("INSERT INTO chat_history (id, user, message) VALUES (1, 'user1', 'Hello world')");
 });
 
-function searchChatHistory(searchTerm) {
+ffunction searchChatHistory(searchTerm) {
   return new Promise((resolve, reject) => {
-    const query = `SELECT * FROM chat_history WHERE message LIKE '%${searchTerm}%'`;
-    db.all(query, [], (err, rows) => {
+    const query = `SELECT * FROM chat_history WHERE message LIKE ?`;
+    db.all(query, [`%${searchTerm}%`], (err, rows) => {
       if (err) reject(err);
       resolve(rows);
     });
